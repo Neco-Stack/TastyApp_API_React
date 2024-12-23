@@ -4,6 +4,7 @@ import './MealDetails.css';
 import { Meal } from '../../types/Meal';
 import Header from "../../components/header/Header";
 import Footer from "../../components/footer/Footer";
+import { fetchMealDetails } from "../../services/Api";
 
 const MealDetails: React.FC = () => {
   const { mealId } = useParams<{ mealId: string }>();
@@ -13,9 +14,8 @@ const MealDetails: React.FC = () => {
     const loadMealDetails = async () => {
       try {
         if (mealId) {
-          const response = await fetch(`https://www.themealdb.com/api/json/v1/1/lookup.php?i=${mealId}`);
-          const data = await response.json();
-          setMeal(data.meals ? data.meals[0] : null);
+          const response = await fetchMealDetails(mealId);
+          setMeal(response.meals ? response.meals[0] : null);
         }
       } catch (error) {
         console.error("Error fetching meal details:", error);

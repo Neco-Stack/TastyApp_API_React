@@ -12,6 +12,11 @@ export const fetchMealsByCategory = async (category: string): Promise<{ meals: M
     return response.json();
   };
 
+export const fetchMealDetails = async (mealId: string): Promise<{ meals: Meal[] }> => {
+    const response = await fetch(`${API_BASE_URL}/lookup.php?i=${mealId}`);
+    return response.json();
+};
+
 export const searchMealsByName = async (name: string): Promise<MealResponse> => {
     const response = await fetch(`${API_BASE_URL}/search.php?s=${name}`);
     return response.json(); 
