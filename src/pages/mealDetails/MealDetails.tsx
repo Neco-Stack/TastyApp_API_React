@@ -1,10 +1,8 @@
-import { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import './MealDetails.css';
 import { Meal } from '../../types/Meal';
 import Header from "../../components/header/Header";
 import Footer from "../../components/footer/Footer";
-import { fetchMealDetails } from "../../services/Api";
 
 const MealDetails: React.FC = () => {
   const { mealId } = useParams<{ mealId: string }>();
@@ -12,13 +10,14 @@ const MealDetails: React.FC = () => {
 
   useEffect(() => {
     const loadMealDetails = async () => {
-      try {
-        if (mealId) {
-          const response = await fetchMealDetails(mealId);
-          setMeal(response.meals ? response.meals[0] : null);
+      if (mealId) {
+        try {
+          const response = await fetch(`https://www.themealdb.com/api/json/v1/1/lookup.php?i=${mealId}`);
+          const data = await response.json();
+          setMeal(data.meals ? data.meals[0] : null);
+        } catch (error) {
+          console.error("Error fetching meal details:", error);
         }
-      } catch (error) {
-        console.error("Error fetching meal details:", error);
       }
     };
 
@@ -27,39 +26,63 @@ const MealDetails: React.FC = () => {
 
   if (!meal) return <div>Loading...</div>;
 
-  const ingredients = Object.keys(meal)
-    .filter((key) => key.startsWith("strIngredient") && meal[key as keyof Meal])
-    .map((key) => {
-      const measureKey = `strMeasure${key.slice(13)}`; 
-      return `${meal[key as keyof Meal]} ${meal[measureKey as keyof Meal] || ""}`.trim();
-    });
-
   return (
-    <div className="meal-details">
-        <Header />
-      <main>
-        <div className="meal-details-content">
-          <div className="meal-image">
-            <img src={meal.strMealThumb} alt={meal.strMeal} />
-          </div>
-          <div className="meal-info">
-            <h3>Instructions</h3>
-            <ul>
-              {meal.strInstructions.split('.').map((instruction, index) => (
-                instruction.trim() && <li key={index}>{instruction.trim()}.</li>
-              ))}
-            </ul>
-            <h3>Ingredients</h3>
-            <ul>
-              {ingredients.map((ingredient, index) => (
-                <li key={index}>{ingredient}</li>
-              ))}
-            </ul>
-          </div>
-        </div>
-      </main>
-      <Footer />
-    </div>
+    <>
+    <Header />
+    <main>
+    <section>
+        <img src={meal.strMealThumb} alt={meal.strMeal} />
+        <h3>Instructions</h3>
+        <div>{meal.strInstructions.split('.')[0]?.trim()}</div>
+        <div>{meal.strInstructions.split('.')[1]?.trim()}</div>
+        <div>{meal.strInstructions.split('.')[2]?.trim()}</div>
+        <div>{meal.strInstructions.split('.')[3]?.trim()}</div>
+        <div>{meal.strInstructions.split('.')[4]?.trim()}</div>
+        <div>{meal.strInstructions.split('.')[5]?.trim()}</div>
+        <div>{meal.strInstructions.split('.')[6]?.trim()}</div>
+        <div>{meal.strInstructions.split('.')[7]?.trim()}</div>
+        <div>{meal.strInstructions.split('.')[8]?.trim()}</div>
+        <div>{meal.strInstructions.split('.')[9]?.trim()}</div>
+        <div>{meal.strInstructions.split('.')[10]?.trim()}</div>
+
+        <h3>Ingredients</h3>
+        <div>{meal.strIngredient1}</div>
+        <div>{meal.strIngredient2}</div>
+        <div>{meal.strIngredient3}</div>
+        <div>{meal.strIngredient4}</div>
+        <div>{meal.strIngredient5}</div>
+        <div>{meal.strIngredient6}</div>
+        <div>{meal.strIngredient7}</div>
+        <div>{meal.strIngredient8}</div>
+        <div>{meal.strIngredient9}</div>
+        <div>{meal.strIngredient10}</div>
+        <div>{meal.strIngredient11}</div>
+        <div>{meal.strIngredient12}</div>
+        <div>{meal.strIngredient13}</div>
+        <div>{meal.strIngredient14}</div>
+        <div>{meal.strIngredient15}</div>
+        <div>{meal.strIngredient16}</div>
+        <div>{meal.strIngredient17}</div>
+        <div>{meal.strIngredient18}</div>
+        <div>{meal.strIngredient19}</div>
+        <div>{meal.strIngredient20}</div>
+
+        {meal.strYoutube && (
+          <button
+            type="button"
+            onClick={() => {
+              if (meal.strYoutube) {
+                window.location.href = meal.strYoutube;
+              }
+            }}
+          >
+            Watch on YouTube
+          </button>
+        )}
+      </section> 
+    </main>
+    <Footer />
+    </>
   );
 };
 
