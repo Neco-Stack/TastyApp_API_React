@@ -29,6 +29,7 @@ const MealDetails: React.FC = () => {
   return (
     <>
     <Header />
+
     <main>
     <section>
         <img src={meal.strMealThumb} alt={meal.strMeal} />

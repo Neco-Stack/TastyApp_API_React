@@ -9,9 +9,7 @@ const Header: React.FC = () => {
                 <img src={logoImage} alt="Tasty Logo" />
             </div>
             <h2>Find a recipe, an idea, an inspiration...</h2>
-            <div className="search-button">
-                <SearchBar />
-            </div>
+            <SearchBar />
         </div>
     );
 }
