@@ -1,6 +1,6 @@
-import "./header.css";
 import logoImage from "../../assets/logo/tastyLogo.png"
 import SearchBar from "../searchBar/SearchBar";
+import "./Header.css"
 
 const Header: React.FC = () => {
     return ( 
