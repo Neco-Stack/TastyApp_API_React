@@ -1,5 +1,6 @@
 import "./header.css";
 import logoImage from "../../assets/logo/tastyLogo.png"
+import SearchBar from "../searchBar/SearchBar";
 
 const Header: React.FC = () => {
     return ( 
@@ -9,8 +10,7 @@ const Header: React.FC = () => {
             </div>
             <h2>Find a recipe, an idea, an inspiration...</h2>
             <div className="search-button">
-                <input type="text" placeholder="Type something to search" />
-                <button>Search</button>
+                <SearchBar />
             </div>
         </div>
     );

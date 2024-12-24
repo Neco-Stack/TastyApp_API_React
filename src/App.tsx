@@ -4,6 +4,7 @@ import Home from './pages/home/Home';
 import './App.css';
 import CategoryPage from './pages/categoryPage/CategoryPage';
 import MealDetails from './pages/mealDetails/MealDetails';
+import SearchResults from './pages/searchResults/SearchResults';
 
 const App: React.FC = () => {
   return (
@@ -13,6 +14,8 @@ const App: React.FC = () => {
           <Route path="/" element={<Home />} />
           <Route path="/category/:categoryName" element={<CategoryPage />} />
           <Route path="/meal/:mealId" element={<MealDetails />} />
+          <Route path="/suche/:suchbegriff" element={<SearchResults />} />
+
         </Routes>
       </div>
     </BrowserRouter>
